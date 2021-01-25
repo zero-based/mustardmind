@@ -1,6 +1,6 @@
 import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { theme } from "../src/theme/styles";
+import { theme } from "../src/theme/theme";
 import { Global } from "@emotion/react";
 import { fonts } from "../src/theme/font-face";
 
