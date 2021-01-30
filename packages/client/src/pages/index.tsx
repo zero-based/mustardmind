@@ -1,4 +1,4 @@
-import { Center, Heading, Button } from "mauinz";
+import { Center, Heading, Button } from "@mustardmind/mauinz";
 import { useMeLazyQuery } from "../generated/codegen";
 
 export default function Home() {

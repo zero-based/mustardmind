@@ -1,9 +1,9 @@
-import { ChakraProvider } from "mauinz";
+import { ChakraProvider } from "@mustardmind/mauinz";
 import { ApolloProvider } from '@apollo/client';
-import { client } from "../client"
+import { client } from "../client";
 import { Global } from "@emotion/react";
-import { fonts } from "mauinz";
-import { theme } from 'mauinz'
+import { fonts } from "@mustardmind/mauinz";
+import { theme } from '@mustardmind/mauinz';
 
 function MyApp({ Component, pageProps }) {
   return (

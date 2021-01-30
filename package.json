@@ -1,14 +1,17 @@
 {
+    "name": "@mustardmind/workspace",
     "private": true,
     "workspaces": [
-        "mauinz",
-        "server",
-        "client"
+        "packages/*"
     ],
+    "scripts": {
+        "dev": "lerna run dev --parallel"
+    },
     "devDependencies": {
         "@commitlint/cli": "^11.0.0",
         "@commitlint/config-conventional": "^11.0.0",
-        "husky": "^4.3.8"
+        "husky": "^4.3.8",
+        "lerna": "^3.22.1"
     },
     "husky": {
         "hooks": {
