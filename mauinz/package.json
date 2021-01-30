@@ -2,6 +2,8 @@
   "name": "mauinz",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@chakra-ui/react": "^1.1.5",
     "@emotion/react": "^11.1.4",
@@ -21,10 +23,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "build": "tsc",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "build-storybook": "build-storybook"
   },
