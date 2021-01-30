@@ -2,8 +2,6 @@
   "name": "@mustardmind/mauinz",
   "version": "0.1.0",
   "private": true,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "dependencies": {
     "@chakra-ui/react": "^1.1.5",
     "@emotion/react": "^11.1.4",
