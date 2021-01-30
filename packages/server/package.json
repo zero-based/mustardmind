@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node dist/server",
     "clean": "rm -rf dist",
-    "build": "npm -s run clean && npm -s run generate && tsc",
-    "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
-    "generate:prisma": "prisma generate",
-    "generate:nexus": "ts-node --transpile-only src/schema",
+    "build": "yarn clean && yarn gen && tsc",
+    "gen": "yarn gen:prisma && yarn gen:nexus",
+    "gen:prisma": "prisma generate",
+    "gen:nexus": "ts-node --transpile-only src/schema",
     "dev": "ts-node-dev --no-notify --respawn --transpile-only src/server"
   },
   "dependencies": {

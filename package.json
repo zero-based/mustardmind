@@ -5,7 +5,8 @@
         "packages/*"
     ],
     "scripts": {
-        "dev": "lerna run dev --parallel"
+        "gen": "lerna run gen",
+        "dev": "yarn gen && lerna run dev --parallel"
     },
     "devDependencies": {
         "@commitlint/cli": "^11.0.0",
