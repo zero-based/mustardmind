@@ -2,7 +2,8 @@
     "private": true,
     "workspaces": [
         "mauinz",
-        "server"
+        "server",
+        "client"
     ],
     "devDependencies": {
         "@commitlint/cli": "^11.0.0",

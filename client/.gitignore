@@ -1,0 +1,18 @@
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# vercel
+.vercel
+
+# generated
+generated/
