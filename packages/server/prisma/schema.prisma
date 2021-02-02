@@ -13,6 +13,12 @@ generator typegraphql {
 }
 
 model User {
-  id   Int    @id @default(autoincrement())
-  name String
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String   @unique
+  email     String   @unique
+  /// @TypeGraphQL.omit(output: true)
+  password  String
+  /// @TypeGraphQL.omit(output: true)
+  createdAt DateTime @default(now())
 }

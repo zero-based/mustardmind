@@ -4,7 +4,7 @@ import * as path from "path";
 
 const createSchema = async () => {
   return await buildSchema({
-    resolvers: [path.join(__dirname, "graphql/*.resolver.[jt]s")],
+    resolvers: [path.join(__dirname, "graphql/**/resolver.[jt]s")],
     emitSchemaFile: path.join(__dirname, "generated/schema.graphql"),
     validate: false,
   });

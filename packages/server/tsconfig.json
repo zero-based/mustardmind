@@ -2,7 +2,6 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "strict": true,
     "target": "es2018",
     "module": "commonjs",
     "lib": ["es2018", "esnext.asynciterable"],
