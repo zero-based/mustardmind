@@ -13,12 +13,37 @@ generator typegraphql {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  phone     String   @unique
-  email     String   @unique
+  id         Int          @id @default(autoincrement())
+  name       String
+  phone      String       @unique
+  email      String       @unique
+  tenantUser TenantUser[]
   /// @TypeGraphQL.omit(output: true)
-  password  String
+  password   String
   /// @TypeGraphQL.omit(output: true)
-  createdAt DateTime @default(now())
+  createdAt  DateTime     @default(now())
+}
+
+model Tenant {
+  id          Int          @id @default(autoincrement())
+  name        String
+  domain_name String       @unique
+  hotline     String
+  tenantUser  TenantUser[]
+}
+
+model TenantUser {
+  role     Role   @default(OWNER)
+  User     User   @relation(fields: [userId], references: [id])
+  userId   Int
+  Tenant   Tenant @relation(fields: [tenantId], references: [id])
+  tenantId Int
+
+  @@id([userId, tenantId])
+}
+
+enum Role {
+  OWNER
+  MANAGER
+  WAITER
 }
