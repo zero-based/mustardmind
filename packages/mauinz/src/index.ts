@@ -5,3 +5,4 @@ export { fonts } from './theme/font-face';
 export { Button } from './components/button/Button';
 export { Input } from './components/input/Input';
 export { InputField } from './components/inputField/InputField';
+export { NavBar } from './components/navBar/NavBar';
