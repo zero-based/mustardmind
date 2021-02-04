@@ -1,0 +1,25 @@
+mutation CreateUser(
+  $input: UserInput!
+) {
+  createUser(
+    input: $input
+  ) {
+    __typename
+
+    ... on User {
+      id
+      name
+    }
+
+    ... on FieldsValidationError {
+      fieldErrors {
+        path
+        message
+      }
+    }
+
+    ... on IError {
+      message
+    }
+  }
+}

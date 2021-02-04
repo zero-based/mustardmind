@@ -1,0 +1,24 @@
+mutation Login($input: CredentialsInput!) {
+  login(input: $input) {
+    __typename
+
+    ... on User {
+      id
+      name
+      phone
+      email
+    }
+
+    ... on FieldsValidationError {
+      message
+      fieldErrors {
+        path
+        message
+      }
+    }
+
+    ... on IError {
+      message
+    }
+  }
+}

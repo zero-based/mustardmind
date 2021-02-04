@@ -1,5 +1,7 @@
 import React from "react";
-
+import * as Yup from "yup";
+import { useRouter } from "next/router";
+import { CredentialsInput, useLoginMutation } from "../generated/codegen";
 import {
   Formik,
   Center,
@@ -7,25 +9,61 @@ import {
   Form,
   InputField,
   Heading,
+  useToast,
 } from "@mustardmind/mauinz";
+import { toErrorMap } from "src/util/toErrorMap";
 
-interface SignInFormValues {
-  email: string;
-  password: string;
-}
+const SignInValidationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().min(8, "Too Short!").required("Required"),
+});
 
 const SignIn: React.FC<{}> = () => {
-  const initialValues: SignInFormValues = { email: "", password: "" };
+  const router = useRouter();
+  const toast = useToast();
+  const [login] = useLoginMutation();
+  const initialValues: CredentialsInput = {
+    email: "",
+    password: "",
+  };
+
   return (
     <Center flexDirection="column" h="100vh">
       <Heading>Sign In</Heading>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
+        validationSchema={SignInValidationSchema}
+        onSubmit={async (values, { setErrors }) => {
+          const response = await login({
+            variables: {
+              input: {
+                email: values.email, password: values.password
+              }
+            },
+          });
+
+          if (response.data?.login.__typename !== "User") {
+            if (response.data?.login.__typename === "FieldsValidationError") {
+              var errorMap = toErrorMap(response.data?.login.fieldErrors);
+              setErrors(errorMap);
+            } else {
+              toast({
+                title: response.data?.login.message,
+                description: "Unable to sign in. 😢",
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+              });
+            }
+          } else {
+            toast({
+              title: "Signed in successfully. 🚀💯",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
+            router.push("/dashboard");
+          }
         }}
       >
         {(props) => (
