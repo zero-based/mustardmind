@@ -12,12 +12,13 @@ import { CredentialsInput } from "./inputs/CredentialsInput";
 import { UserInput } from "./inputs/UserInput";
 import { AuthResult } from "./results/AuthResult";
 import { CreateUserResult } from "./results/CreateUserResult";
+import { setJwtCookie } from "./setJwtCookie";
 
 @Resolver()
 class AuthResolver {
   @Query(() => User, { nullable: true })
   async me(@Ctx() ctx: Context): Promise<User | null> {
-    return null;
+    return ctx.user;
   }
 
   @Mutation(() => AuthResult)
@@ -43,6 +44,7 @@ class AuthResolver {
 
     if (!authenticated) return new BadCredentialsError();
 
+    setJwtCookie(prismaUser, ctx.res);
     return Object.assign(new User(), prismaUser);
   }
 
@@ -63,6 +65,7 @@ class AuthResolver {
         },
       });
 
+      setJwtCookie(prismaUser, ctx.res);
       return Object.assign(new User(), prismaUser);
     } catch (err) {
       if (

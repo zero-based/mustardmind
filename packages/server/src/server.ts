@@ -1,11 +1,19 @@
 import { ApolloServer } from "apollo-server";
-import { schema } from "./schema";
 import { createContext } from "./context";
+import { authenticate } from "./middleware/auth";
+import { schema } from "./schema";
 
 const main = async () => {
   const server = new ApolloServer({
+    cors: {
+      credentials: true,
+      origin: [process.env.CLIENT_URL],
+    },
     schema: await schema,
-    context: createContext,
+    context: ({ req, res }) => {
+      const user = authenticate(req);
+      return createContext(req, res, user);
+    },
   });
 
   server.listen().then(({ url }) => {
