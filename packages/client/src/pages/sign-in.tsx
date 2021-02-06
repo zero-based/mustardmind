@@ -10,6 +10,10 @@ import {
   InputField,
   Heading,
   useToast,
+  Grid,
+  GridItem,
+  Box,
+  Image
 } from "@mustardmind/mauinz";
 import { toErrorMap } from "src/util/toErrorMap";
 
@@ -28,63 +32,72 @@ const SignIn: React.FC<{}> = () => {
   };
 
   return (
-    <Center flexDirection="column" h="100vh">
-      <Heading>Sign In</Heading>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={SignInValidationSchema}
-        onSubmit={async (values, { setErrors }) => {
-          const response = await login({
-            variables: {
-              input: {
-                email: values.email, password: values.password
-              }
-            },
-          });
-
-          if (response.data?.login.__typename !== "User") {
-            if (response.data?.login.__typename === "FieldsValidationError") {
-              var errorMap = toErrorMap(response.data?.login.fieldErrors);
-              setErrors(errorMap);
-            } else {
-              toast({
-                title: response.data?.login.message,
-                description: "Unable to sign in. 😢",
-                status: "error",
-                duration: 2000,
-                isClosable: true,
+    <Grid
+      templateRows="repeat(2, 1fr)"
+      templateColumns="repeat(2, 1fr)"
+      gap={[0, 4]}>
+      <GridItem colSpan={[2, 1]} rowSpan={[1, 2]}>
+        <Box padding={[8, 16]}>
+          <Heading as="h2" size="lg" mb={4}>Sign In</Heading>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={SignInValidationSchema}
+            onSubmit={async (values, { setErrors }) => {
+              const response = await login({
+                variables: {
+                  input: {
+                    email: values.email, password: values.password
+                  }
+                },
               });
-            }
-          } else {
-            toast({
-              title: "Signed in successfully. 🚀💯",
-              status: "success",
-              duration: 2000,
-              isClosable: true,
-            });
-            router.push("/dashboard");
-          }
-        }}
-      >
-        {(props) => (
-          <Form>
-            <InputField
-              name="email"
-              label="Email"
-              inputProps={{ placeholder: "user@mail.com", width: "100vh" }}
-            />
-            <InputField
-              name="password"
-              label="Password"
-              inputProps={{ placeholder: "password", type: "password" }}
-            />
-            <Button mt={4} type="submit" isLoading={props.isSubmitting}>
-              Sign In
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </Center>
+
+              if (response.data?.login.__typename !== "User") {
+                if (response.data?.login.__typename === "FieldsValidationError") {
+                  var errorMap = toErrorMap(response.data?.login.fieldErrors);
+                  setErrors(errorMap);
+                } else {
+                  toast({
+                    title: response.data?.login.message,
+                    description: "Unable to sign in. 😢",
+                    status: "error",
+                    duration: 2000,
+                    isClosable: true,
+                  });
+                }
+              } else {
+                toast({
+                  title: "Signed in successfully. 🚀💯",
+                  status: "success",
+                  duration: 2000,
+                  isClosable: true,
+                });
+                router.push("/dashboard");
+              }
+            }}
+          >
+            {(props) => (
+              <Form>
+                <Center flexDirection="column">
+                  <InputField
+                    name="email"
+                    label="Email"
+                    inputProps={{ placeholder: "user@mail.com" }}
+                  />
+                  <InputField
+                    name="password"
+                    label="Password"
+                    inputProps={{ placeholder: "password", type: "password" }}
+                  />
+                  <Button mt={4} type="submit" isLoading={props.isSubmitting}>Sign In</Button>
+                </Center>
+              </Form>
+            )}
+          </Formik>
+        </Box>
+      </GridItem>
+      <GridItem colSpan={[2, 1]} rowSpan={[1, 2]} bg={"black"}>
+      </GridItem>
+    </Grid>
   );
 };
 
