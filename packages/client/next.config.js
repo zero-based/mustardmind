@@ -1,5 +1,5 @@
-const { join } = require('path');
-const workspace = join(__dirname, '..');
+const { join } = require("path");
+const workspace = join(__dirname, "..");
 
 module.exports = {
   webpack: (config, options) => {
@@ -8,6 +8,8 @@ module.exports = {
       rules: [
         ...config.module.rules,
         {
+          test: /\.(js|jsx|ts|tsx)$/,
+          include: [workspace],
           exclude: /node_modules/,
           use: options.defaultLoaders.babel,
         },
