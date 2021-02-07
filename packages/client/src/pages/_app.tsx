@@ -6,6 +6,7 @@ import { fonts } from "@mustardmind/mauinz";
 import { theme } from '@mustardmind/mauinz';
 import { NavBarContainer } from "../components/NavBar.container"
 import { INvaBarTextProps } from "src/components/NavBarItem";
+import "../styles/style.css";
 
 function MyApp({ Component, pageProps }) {
 
